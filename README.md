@@ -4,7 +4,7 @@
 
 *Aprenda. Planeje. Desenvolva. Tudo em um só lugar.*
 
-![React](https://img.shields.io/badge/Frontend-React-61DAFB?style=for-the-badge&logo=react&logoColor=black) ![Node.js](https://img.shields.io/badge/Backend-Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white) ![Express](https://img.shields.io/badge/API-Express-000000?style=for-the-badge&logo=express&logoColor=white) ![MariaDB](https://img.shields.io/badge/Database-MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white) ![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow?style=for-the-badge)
+![React](https://img.shields.io/badge/Frontend-React-61DAFB?style=for-the-badge&logo=react&logoColor=black) ![Node.js](https://img.shields.io/badge/Backend-Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white) ![Express](https://img.shields.io/badge/API-Express-000000?style=for-the-badge&logo=express&logoColor=white) ![MongoDB](https://img.shields.io/badge/Database-MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white) ![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow?style=for-the-badge)
 
 ---
 
@@ -63,7 +63,7 @@ O grande diferencial do DevVault é que **nada fica isolado**. Um conceito estud
 | --- | --- | --- |
 | **Frontend** | React | Interface, componentes e consumo da API |
 | **Backend** | Node.js + Express | API REST, regras de negócio e validações |
-| **Banco de dados** | MariaDB (via XAMPP, local) | Armazenamento relacional dos dados |
+| **Banco de dados** | MongoDB (local ou Atlas) | Armazenamento não relacional dos dados |
 
 > O React nunca acessa o banco diretamente — toda comunicação passa pela API REST em Node.js, garantindo separação clara entre interface e dados.
 
@@ -71,16 +71,15 @@ O grande diferencial do DevVault é que **nada fica isolado**. Um conceito estud
 
 ## 🗃️ Estrutura do banco de dados (inicial)
 
-| Tabela | Descrição |
+| Coleção | Descrição |
 | --- | --- |
-| `projects` | Projetos pessoais cadastrados |
+| `projects` | Projetos pessoais cadastrados (referenciando tecnologias e conceitos por `ObjectId`) |
 | `concepts` | Conceitos técnicos da biblioteca |
 | `technologies` | Tecnologias utilizadas |
 | `requirements` | Requisitos dos projetos |
 | `features` | Funcionalidades planejadas |
-| `project_technologies` | Relação N:N entre projetos e tecnologias |
-| `project_concepts` | Relação N:N entre projetos e conceitos |
 
+> Por ser orientado a documentos, o MongoDB dispensa tabelas de junção: relações como projeto ↔ tecnologias e projeto ↔ conceitos podem ser guardadas como arrays de `ObjectId` (ou subdocumentos) dentro do próprio documento do projeto.
 
 ---
 
@@ -89,7 +88,7 @@ O grande diferencial do DevVault é que **nada fica isolado**. Um conceito estud
 ### Pré-requisitos
 
 - Node.js instalado
-- XAMPP (ou outro servidor MariaDB/MySQL) rodando localmente
+- MongoDB instalado localmente (ou uma instância no MongoDB Atlas)
 
 ### 1. Clonar o repositório
 
@@ -100,9 +99,9 @@ cd devvault
 
 ### 2. Configurar o banco de dados
 
-- Inicie o MariaDB pelo XAMPP
+- Inicie o serviço do MongoDB localmente (ou crie um cluster gratuito no Atlas)
 - Crie o banco `devvault`
-- Importe o script SQL (quando disponível em `server/database/`)
+- Defina a variável de ambiente `MONGODB_URI` no `server/.env` (ex: `mongodb://localhost:27017/devvault`)
 
 ### 3. Rodar o backend (API)
 
